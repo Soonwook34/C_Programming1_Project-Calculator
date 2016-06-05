@@ -6,24 +6,24 @@
  ***		전혜윤(20160326)			***
  ***		배서현(20160294)			***
  ******************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define N 100
 
-void starter(char input[]);										//수식 입력 함수
-void calculate(char value[], char answer[]);					//수식 계산 함수
-int plus(char a[], int n, char b[], int m, char answer[]);		//덧셈 함수
-int minus(char a[], int n, char b[], int m, char answer[]);		//뺄셈 함수
-int multiply(char a[], int n, char b[], int m, char answer[]);	//곱셈 함수
-int divide(char a[], int n, char b[], int m, char answer[]);	//나눗셈 함수
-int mod(char a[], int n, char b[], int m, char answer[]);		//나머지 함수
-void integer(char inte[], int n);								//받은 배열(상수)을 char형에서 int형으로 바꾸는 함수
-void reverse(char rev[], int n);								//받은 배열(상수)을 뒤집어 주는 함수 
-void printAnswer(char answer[], int length, int sigDigit);		//정답 출력 함수
+void starter(char input[]);													//수식 입력 함수
+void calculate(char value[], char answer[]);								//수식 계산 함수
+int plus(char a[], int n, char b[], int m, char answer[]);					//덧셈 함수
+int minus(char a[], int n, char b[], int m, char answer[]);					//뺄셈 함수
+int multiply(char a[], int n, char b[], int m, char answer[]);				//곱셈 함수
+int divide(char a[], int n, char b[], int m, char answer[]);				//나눗셈 함수
+int mod(char a[], int n, char b[], int m, char answer[]);					//나머지 함수
+void integer(char inte[], int n);											//받은 배열(상수)을 char형에서 int형으로 바꾸는 함수
+void reverse(char rev[], int n);											//받은 배열(상수)을 뒤집어 주는 함수 
+void printAnswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
 
+//메인 함수
 int main()
 {
 	while(1){
@@ -37,24 +37,20 @@ int main()
 		if(input[0]=='e' && input[1]=='n' && input[2]=='d' && input[3]=='\0'){
 			break;
 		}
-
 		//clear 처리
-		if(input[0]=='c' && input[1]=='l' && input[2]=='e' && input[3]=='a' && input[4]=='r' && input[5]=='\0'){
+		else if(input[0]=='c' && input[1]=='l' && input[2]=='e' && input[3]=='a' && input[4]=='r' && input[5]=='\0'){
 			system("clear");
 		}
-
 		//save 처리
-		if(input[0]=='s' && input[1]=='a' && input[2]=='v' && input[3]=='e' && input[4]=='\0'){
+		else if(input[0]=='s' && input[1]=='a' && input[2]=='v' && input[3]=='e' && input[4]=='\0'){
 			printf("save 함수 만들어야지..\n\n");
 		}
-
 		//load 처리
-		if(input[0]=='l' && input[1]=='o' && input[2]=='a' && input[3]=='d' && input[4]=='\0'){
+		else if(input[0]=='l' && input[1]=='o' && input[2]=='a' && input[3]=='d' && input[4]=='\0'){
 			printf("load 함수 만들어야지..\n\n");
 		}
-
 		//VAR 처리
-		if(input[0]=='V' && input[1]=='A' && input[2]=='R' && input[3]=='\0'){
+		else if(input[0]=='V' && input[1]=='A' && input[2]=='R' && input[3]=='\0'){
 			printf("VAR 함수 만들어야지..\n\n");
 		}
 	}
@@ -66,7 +62,7 @@ void starter(char input[])
 {
 	int c, i=0;
 	//답 저장 배열
-	char answer[59] = {0};
+	char answer[60] = {0};
 
 	printf("입력 : ");
 
@@ -79,21 +75,19 @@ void starter(char input[])
 			input[i] = '\0';
 			break;
 		}
-
 		//띄어쓰기 무시
 		else if((c==' ') || (c=='	')){
 			continue;
 		}
-
 		//받을 수 있는 것(숫자, 알파벳, 수식 기호, 소수점)은 input배열에 저장
 		else if(((c>='0') && (c<='9')) || ((c>='a') && (c<='z')) || ((c>='A') && (c<='Z')) || (c=='+') || (c=='-') || (c=='*') || (c=='/') || (c=='%') || (c=='=') || (c=='.')){
 			input[i] = c;
 			i++;
 		}
-
 		//기타 문자 오류 처리
 		else{
 			printf("error : '%c'는 인식할 수 없습니다\n\n",c);
+			input[i] = c;
 			while(1){
 				c = getchar();
 				if(c=='\n'){
@@ -108,22 +102,18 @@ void starter(char input[])
 	if(input[0]=='e' && input[1]=='n' && input[2]=='d' && input[3]=='\0'){
 		return;
 	}
-
 	//clear이면 함수 종료
 	else if(input[0]=='c' && input[1]=='l' && input[2]=='e' && input[3]=='a' && input[4]=='r' && input[5]=='\0'){
 		return;
 	}
-
 	//save이면 함수 종료
 	else if(input[0]=='s' && input[1]=='a' && input[2]=='v' && input[3]=='e' && input[4]=='\0'){
 		return;
 	}
-
 	//load이면 함수 종료
 	else if(input[0]=='l' && input[1]=='o' && input[2]=='a' && input[3]=='d' && input[4]=='\0'){
 		return;
 	}
-
 	//VAR이면 함수 종료
 	else if(input[0]=='V' && input[1]=='A' && input[2]=='R' && input[3]=='\0'){
 		return;
@@ -131,7 +121,6 @@ void starter(char input[])
 
 	//수식 계산 함수 호출
 	calculate(input, answer);
-
 	return;
 }
 
@@ -140,9 +129,9 @@ void calculate(char input[], char answer[])
 {
 	int c, i, j, k, l;
 	int v1, v2;
-	int length, sigDigit=0;
+	int length, sigDigit=0, negNum=0;
 	//수와 문자와 기호를 저장할 배열
-	char value[N][59] = {0};
+	char value[N][60] = {0};
 	//소수
 	char deciCount[N][2] = {0};
 
@@ -165,7 +154,6 @@ void calculate(char input[], char answer[])
 			value[j][k] = c;
 			k++;
 		}
-
 		//알파벳
 		else if(((c>='a') && (c<='z')) || ((c>='A') && (c<='Z'))){
 			if(k>=1){
@@ -177,12 +165,11 @@ void calculate(char input[], char answer[])
 			value[j][k] = c;
 			k++;
 		}
-
 		//수식기호
 		else if((c=='+') || (c=='-') || (c=='*') || (c=='/') || (c=='%') || (c=='=')){
 			//전에 배열이 상수라면 소수자리 채우기
 			if(value[j][0]>='0' && value[j][0]<='9'){
-				for(l=deciCount[j][1];l<9;l++){
+				for(l=deciCount[j][1]; l<9; l++){
 					value[j][k]='0';
 					k++;
 				}
@@ -192,7 +179,6 @@ void calculate(char input[], char answer[])
 			j+=2;
 			k=0;
 		}
-
 		//소수점
 		else if (c=='.'){
 			if(deciCount[j][0]){
@@ -201,7 +187,6 @@ void calculate(char input[], char answer[])
 			}
 			deciCount[j][0]=1;
 		}
-
 		//배열의 끝
 		else if(c=='\0'){
 			value[j][k]='\0';
@@ -215,7 +200,6 @@ void calculate(char input[], char answer[])
 				return;
 			}
 		}
-
 		//정수 최대 자리를 초과했는지 검사
 		else{
 			if(k==51){
@@ -227,7 +211,7 @@ void calculate(char input[], char answer[])
 
 	//마지막 배열의 소수자리 처리
 	if(value[j][0]>='0' && value[j][0]<='9'){
-		for(l=deciCount[j][1];l<9;l++){
+		for(l=deciCount[j][1]; l<9; l++){
 			value[j][k]='0';
 			k++;
 		}
@@ -235,7 +219,7 @@ void calculate(char input[], char answer[])
 
 	v1=strlen(value[0]);
 	v2=strlen(value[2]);
-	
+
 	//'+'일 경우
 	if(value[1][0]=='+'){
 		length = plus(value[0],v1,value[2],v2,answer);
@@ -249,29 +233,54 @@ void calculate(char input[], char answer[])
 			sigDigit = deciCount[2][1];
 		}
 	}
-
 	//'-'일 경우
-	if(value[1][0]=='-'){
-		length = minus(value[0],v1,value[2],v2,answer);
-	}
+	else if(value[1][0]=='-'){
+		//두 수를 비교해서 큰 수에서 작은 수를 빼도록 만든다
+		if(v1==v2){
+			if(strcmp(value[0],value[2])<0){
+				length = minus(value[2],v2,value[0],v1,answer);
+				negNum = 1;
+			}
+			else{
+				length = minus(value[0],v1,value[2],v2,answer);
+			}
+		}
+		else if(v1<v2){
+			length = minus(value[2],v2,value[0],v1,answer);
+			negNum = 1;
+		}
+		else{
+			length = minus(value[0],v1,value[2],v2,answer);
+		}
 
+		reverse(answer,length);
+
+		if(deciCount[0][1]>=deciCount[2][1]){
+			sigDigit = deciCount[0][1];
+		}
+		else{
+			sigDigit = deciCount[2][1];
+		}
+	}
 	//'*'일 경우
-	if(value[1][0]=='*'){
+	else if(value[1][0]=='*'){
 		length = multiply(value[0],v1,value[2],v2,answer);
 	}
-
 	//'/'일 경우
-	if(value[1][0]=='/'){
+	else if(value[1][0]=='/'){
 		length = divide(value[0],v1,value[2],v2,answer);
 	}
-
 	//'%'일 경우
-	if(value[1][0]=='%'){
+	else if(value[1][0]=='%'){
 		length = mod(value[0],v1,value[2],v2,answer);
+	}
+	else{
+		printf("error : 잘못된 수식입니다\n\n");
+		return;
 	}
 
 	//정답 출력 함수 호출
-	printAnswer(answer,length,sigDigit);
+	printAnswer(answer,length,sigDigit,negNum);
 
 	printf("\n\n");
 	return;
@@ -290,7 +299,7 @@ int plus(char a[], int n, char b[], int m, char answer[])
 	reverse(a,n);
 	reverse(b,m);
 
-	//소수자리를 위한 수
+	//전체 자리를 위한 수 리턴
 	if(n>=m){
 		j=n;
 	}
@@ -299,16 +308,20 @@ int plus(char a[], int n, char b[], int m, char answer[])
 	}
 
 	//두 수를 한자리씩 더해준다
-	for(i=0;i<j;i++){
+	for(i=0; i<j; i++){
 		answer[i] = a[i] + b[i];
 	}
 
 	//10이 넘어가면 올려준다
-	for(i=0;i<=j;i++){
+	for(i=0; i<j; i++){
 		if(answer[i] >= 10){
 			answer[i] -= 10;
 			answer[i+1] += 1;
 		}
+	}
+
+	if(answer[i]){
+		j += 1;
 	}
 	return j;
 }
@@ -316,8 +329,40 @@ int plus(char a[], int n, char b[], int m, char answer[])
 //뺄셈 함수
 int minus(char a[], int n, char b[], int m, char answer[])
 {
-	printf("뺄셈 함수 입력해야지...\n");
-	return 0;
+	int i,j;
+
+	j=n;
+	//받은 배열(상수)를 char형에서 int형으로 바꾼다
+	integer(a,n);
+	integer(b,m);
+
+	//받은 배열(상수)을 뒤집는다
+	reverse(a,n);
+	reverse(b,m);
+
+	//두 수를 한자리씩 빼준다
+	for(i=0;i<n;i++){
+		answer[i] = a[i] - b[i];
+	}
+
+	//0보다 작으면 10을 더해준다
+	for(i=0; i<=n; i++){
+		if(answer[i] < 0){
+			answer[i] += 10;
+			answer[i+1] -= 1;
+		}
+	}
+
+	//전체 자리를 위한 수 리턴
+	for(i=n; i>n-m+9; i--){
+		if(answer[i-1]!=0){
+			break;
+		}
+		else if((answer[i-1]==0) && (i!=10)){
+			j -= 1;
+		}
+	}
+	return j;
 }
 
 //곱셈 함수
@@ -345,7 +390,7 @@ int mod(char a[], int n, char b[], int m, char answer[])
 void integer(char inte[], int n)
 {
 	int i;
-	for(i=0;i<n;i++){
+	for(i=0; i<n; i++){
 		if(inte[i]!=0){
 			inte[i] -= '0';
 		}
@@ -358,7 +403,7 @@ void reverse(char rev[], int n)
 {
 	int tmp;
 	int i;
-	for(i=0;i<n/2;i++){
+	for(i=0; i<n/2; i++){
 		tmp = rev[i];
 		rev[i] = rev[n-1-i];
 		rev[n-1-i] = tmp;
@@ -367,10 +412,16 @@ void reverse(char rev[], int n)
 }
 
 //정답 출력 함수
-void printAnswer(char answer[], int length, int sigDigit)
+void printAnswer(char answer[], int length, int sigDigit, int negNum)
 {
 	int i, j;
+
 	printf("답 : ");
+
+	if(negNum){
+		printf("-");
+	}
+
 	for(i=0, j=0; i<length; i++){
 		//소수자리 출력
 		if(i==length-9){
