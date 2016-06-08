@@ -1,4 +1,4 @@
-﻿/******************************************
+/******************************************
  *** 1학년 1학기 프로젝트 : 큰수계산기	***
  *** 시작 날짜 : 2016년5월 29일			***
  *** 팀원 :	박순욱(20160290)			***
@@ -6,11 +6,12 @@
  ***		전혜윤(20160326)			***
  ***		배서현(20160294)			***
  ******************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define N 100
+#define N 10
 
 void starter(char input[]);													//수식 입력 함수
 void calculate(char value[], char answer[]);								//수식 계산 함수
@@ -21,14 +22,14 @@ int divide(char a[], int n, char b[], int m, char answer[]);				//나눗셈 함�
 int mod(char a[], int n, char b[], int m, char answer[]);					//나머지 함수
 void integer(char inte[], int n);											//받은 배열(상수)을 char형에서 int형으로 바꾸는 함수
 void reverse(char rev[], int n);											//받은 배열(상수)을 뒤집어 주는 함수 
-void printAnswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
+void printAanswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
 
 //메인 함수
 int main()
 {
 	while(1){
 		//처음 수식을 받을 배열
-		char input[10000] = {0};
+		char input[1000] = {0};
 
 		//수식 입력 함수 호출
 		starter(input);
@@ -265,6 +266,14 @@ void calculate(char input[], char answer[])
 	//'*'일 경우
 	else if(value[1][0]=='*'){
 		length = multiply(value[0],v1,value[2],v2,answer);
+		reverse(answer,length);
+
+		if(deciCount[0][1]+deciCount[2][1]>=9){
+			sigDigit = 9;
+		}
+		else{
+			sigDigit = deciCount[0][1]+deciCount[2][1];
+		}
 	}
 	//'/'일 경우
 	else if(value[1][0]=='/'){
@@ -280,7 +289,7 @@ void calculate(char input[], char answer[])
 	}
 
 	//정답 출력 함수 호출
-	printAnswer(answer,length,sigDigit,negNum);
+	printAanswer(answer,length,sigDigit,negNum);
 
 	printf("\n\n");
 	return;
@@ -368,8 +377,82 @@ int minus(char a[], int n, char b[], int m, char answer[])
 //곱셈 함수
 int multiply(char a[], int n, char b[], int m, char answer[])
 {
-	printf("곱셈 함수 입력해야지...\n");
-	return 0;
+	int i,j;
+	int carry=0;
+	char temp[60][120];
+	for(i=0;i<60;i++){
+		for(j=0;j<120;j++){
+			temp[i][j] = 0;
+		}
+	}
+	//받은 배열(상수)를 char형에서 int형으로 바꾼다
+	integer(a,n);
+	integer(b,m);
+
+	//받은 배열(상수)을 뒤집는다
+	reverse(a,n);
+	reverse(b,m);
+
+	//곱셈을 한자릿수마다 연산한다
+	for(j=0;j<m;j++){
+		for(i=0;i<n;i++)
+		{
+			temp[j][i] = (a[i] * b[j] + carry)%10;
+			carry = (a[i] * b[j] + carry)/10;
+		}
+		temp[j][i] = carry;	
+		carry = 0;
+	}
+	
+	//자릿수를 맞추기 위해 밀어준다 
+	for(j=1;j<m;j++)
+	{
+		for(i=n;i>=0;i--)
+			temp[j][i+j] = temp[j][i];
+	}
+
+	//밀어준 자리에 0을 넣는다
+	for(j=1;j<=m;j++)
+	{
+		for(i=1;i<=j;i++)
+			temp[j][j-i] = 0;
+	}
+	
+	for(j=0;j<m;j++){
+		for(i=0;i<m+n;i++)
+		{
+			if(carry +temp[0][i] + temp[j+1][i] >= 10)
+			{
+
+				temp[0][i] = (temp[0][i] + temp[j+1][i] + carry)%10;
+				carry=1;
+			}
+			else
+			{
+				temp[0][i] = temp[0][i] + temp[j+1][i] + carry;
+				carry=0;
+			}
+		}
+	}
+
+	//전체 자리를 위한 수를 리턴한다
+	j=m+n;
+	if(temp[0][j-1]==0){
+		j-=1;
+	}
+	for(i=0;i<j;i++){
+		temp[0][i]=temp[0][i+9];
+	}
+	j-=9;
+	
+	if(j>=60){
+		j=59;
+	}
+
+	for(i=0;i<j;i++){
+		answer[i] = temp[0][i];
+	}
+	return j;
 }
 
 //나눗셈 함수
@@ -412,7 +495,7 @@ void reverse(char rev[], int n)
 }
 
 //정답 출력 함수
-void printAnswer(char answer[], int length, int sigDigit, int negNum)
+void printAanswer(char answer[], int length, int sigDigit, int negNum)
 {
 	int i, j;
 

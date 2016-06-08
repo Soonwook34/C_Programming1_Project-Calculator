@@ -1,3 +1,4 @@
+//2016.06.02
 #include <stdio.h>
 #include <string.h>
 
