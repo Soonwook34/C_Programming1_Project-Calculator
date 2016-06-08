@@ -409,7 +409,10 @@ int toChar(char a[] , int n){
 //나눗셈 함수
 int divide(char a[], int n, char b[], int m, char answer[])
 {
+<<<<<<< HEAD
 	printf("와이 시작이 완됌?");	
+=======
+>>>>>>> refs/remotes/origin/baeseohyeon
 	int newAnswer[60] = {0};
 	int howBig = 0;
 	char temp[60];
