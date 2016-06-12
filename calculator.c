@@ -269,9 +269,19 @@ void calculate(char input[], char answer[])
 		reverse(answer,length);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if(deciCount[0][1]*deciCount[2][1]>=9){
 =======
 		if(deciCount[0][1]+deciCount[2][1]>=9){
+=======
+<<<<<<< HEAD
+		if(deciCount[0][1]*deciCount[2][1]>=9){
+=======
+		if(deciCount[0][1]+deciCount[2][1]>=9){
+>>>>>>> master
+=======
+		if(deciCount[0][1]+deciCount[2][1]>=9){
+>>>>>>> origin/Soonwook
 >>>>>>> refs/remotes/origin/master
 			sigDigit = 9;
 		}
@@ -384,15 +394,27 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 	int i,j;
 	int carry=0;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/Soonwook
 	char ans[60][60];
 	for(i=0;i<60;i++){
 		for(j=0;j<60;j++){
 			ans[i][j] = 0;
 =======
+=======
+>>>>>>> refs/remotes/origin/master
 	char temp[60][120];
 	for(i=0;i<60;i++){
 		for(j=0;j<120;j++){
 			temp[i][j] = 0;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> origin/Soonwook
 >>>>>>> refs/remotes/origin/master
 		}
 	}
@@ -405,6 +427,10 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 	reverse(b,m);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/Soonwook
 	//곱해준다
 	
 	for(j=0;j<m;j++){
@@ -439,6 +465,8 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 
 				ans[0][i] = (ans[0][i] + ans[j+1][i] + carry)%10;
 =======
+=======
+>>>>>>> refs/remotes/origin/master
 	//곱셈을 한자릿수마다 연산한다
 	for(j=0;j<m;j++){
 		for(i=0;i<n;i++)
@@ -471,15 +499,31 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 			{
 
 				temp[0][i] = (temp[0][i] + temp[j+1][i] + carry)%10;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> origin/Soonwook
 >>>>>>> refs/remotes/origin/master
 				carry=1;
 			}
 			else
 			{
 <<<<<<< HEAD
+<<<<<<< HEAD
 				ans[0][i] = ans[0][i] + ans[j+1][i] + carry;
 =======
 				temp[0][i] = temp[0][i] + temp[j+1][i] + carry;
+=======
+<<<<<<< HEAD
+				ans[0][i] = ans[0][i] + ans[j+1][i] + carry;
+=======
+				temp[0][i] = temp[0][i] + temp[j+1][i] + carry;
+>>>>>>> master
+=======
+				temp[0][i] = temp[0][i] + temp[j+1][i] + carry;
+>>>>>>> origin/Soonwook
 >>>>>>> refs/remotes/origin/master
 				carry=0;
 			}
@@ -487,6 +531,10 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/Soonwook
 	//전체 자리를 위한 수 리턴
 	j=m+n;
 	if(ans[0][j-1]==0){
@@ -500,6 +548,8 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 	for(i=0;i<j;i++){
 		answer[i] = ans[0][i];
 =======
+=======
+>>>>>>> refs/remotes/origin/master
 	//전체 자리를 위한 수를 리턴한다
 	j=m+n;
 	if(temp[0][j-1]==0){
@@ -516,6 +566,12 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 
 	for(i=0;i<j;i++){
 		answer[i] = temp[0][i];
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> origin/Soonwook
 >>>>>>> refs/remotes/origin/master
 	}
 	return j;

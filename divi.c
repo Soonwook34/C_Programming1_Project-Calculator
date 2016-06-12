@@ -412,7 +412,11 @@ int divide(char a[], int n, char b[], int m, char answer[])
 <<<<<<< HEAD
 	printf("와이 시작이 완됌?");	
 =======
+<<<<<<< HEAD
+	printf("와이 시작이 완됌?");	
+=======
 >>>>>>> refs/remotes/origin/baeseohyeon
+>>>>>>> refs/remotes/origin/master
 	int newAnswer[60] = {0};
 	int howBig = 0;
 	char temp[60];
