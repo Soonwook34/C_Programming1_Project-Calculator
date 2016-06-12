@@ -1,4 +1,4 @@
-/******************************************
+﻿/******************************************
  *** 1학년 1학기 프로젝트 : 큰수계산기	***
  *** 시작 날짜 : 2016년5월 29일			***
  *** 팀원 :	박순욱(20160290)			***
@@ -6,12 +6,11 @@
  ***		전혜윤(20160326)			***
  ***		배서현(20160294)			***
  ******************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define N 10
+#define N 100
 
 void starter(char input[]);													//수식 입력 함수
 void calculate(char value[], char answer[]);								//수식 계산 함수
@@ -22,14 +21,14 @@ int divide(char a[], int n, char b[], int m, char answer[]);				//나눗셈 함�
 int mod(char a[], int n, char b[], int m, char answer[]);					//나머지 함수
 void integer(char inte[], int n);											//받은 배열(상수)을 char형에서 int형으로 바꾸는 함수
 void reverse(char rev[], int n);											//받은 배열(상수)을 뒤집어 주는 함수 
-void printAanswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
+void printAnswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
 
 //메인 함수
 int main()
 {
 	while(1){
 		//처음 수식을 받을 배열
-		char input[1000] = {0};
+		char input[10000] = {0};
 
 		//수식 입력 함수 호출
 		starter(input);
@@ -221,6 +220,10 @@ void calculate(char input[], char answer[])
 	v1=strlen(value[0]);
 	v2=strlen(value[2]);
 
+	printf("Value[0] : ");
+	for(int i = 0; i < 60; i++)
+		printf("%d ",value[0][i]);
+	printf("\n");
 	//'+'일 경우
 	if(value[1][0]=='+'){
 		length = plus(value[0],v1,value[2],v2,answer);
@@ -266,18 +269,6 @@ void calculate(char input[], char answer[])
 	//'*'일 경우
 	else if(value[1][0]=='*'){
 		length = multiply(value[0],v1,value[2],v2,answer);
-		reverse(answer,length);
-
-<<<<<<< HEAD
-		if(deciCount[0][1]*deciCount[2][1]>=9){
-=======
-		if(deciCount[0][1]+deciCount[2][1]>=9){
->>>>>>> refs/remotes/origin/master
-			sigDigit = 9;
-		}
-		else{
-			sigDigit = deciCount[0][1]+deciCount[2][1];
-		}
 	}
 	//'/'일 경우
 	else if(value[1][0]=='/'){
@@ -291,9 +282,15 @@ void calculate(char input[], char answer[])
 		printf("error : 잘못된 수식입니다\n\n");
 		return;
 	}
+	//Test
+	printf("Value[0] : ");
+	for(int i = 0; i < 60; i++)
+		printf("%d ",value[0][i]);
+	printf("\n");
+
 
 	//정답 출력 함수 호출
-	printAanswer(answer,length,sigDigit,negNum);
+	printAnswer(answer,length,sigDigit,negNum);
 
 	printf("\n\n");
 	return;
@@ -381,153 +378,85 @@ int minus(char a[], int n, char b[], int m, char answer[])
 //곱셈 함수
 int multiply(char a[], int n, char b[], int m, char answer[])
 {
-	int i,j;
-	int carry=0;
-<<<<<<< HEAD
-	char ans[60][60];
-	for(i=0;i<60;i++){
-		for(j=0;j<60;j++){
-			ans[i][j] = 0;
-=======
-	char temp[60][120];
-	for(i=0;i<60;i++){
-		for(j=0;j<120;j++){
-			temp[i][j] = 0;
->>>>>>> refs/remotes/origin/master
-		}
-	}
-	//받은 배열(상수)를 char형에서 int형으로 바꾼다
-	integer(a,n);
-	integer(b,m);
-
-	//받은 배열(상수)을 뒤집는다
-	reverse(a,n);
-	reverse(b,m);
-
-<<<<<<< HEAD
-	//곱해준다
-	
-	for(j=0;j<m;j++){
-		for(i=0;i<n;i++)
-		{
-			ans[j][i] = (a[i] * b[j] + carry)%10;
-			carry = (a[i] * b[j] + carry)/10;
-		}
-		ans[j][i] = carry;	
-		carry = 0;
-	}
-	
-	//한자리씩 올려준다
-	for(j=1;j<m;j++)
-	{
-		for(i=n;i>=0;i--)
-			ans[j][i+j] = ans[j][i];
-	}
-
-	//필요없는 값 정리
-	for(j=1;j<=m;j++)
-	{
-		for(i=1;i<=j;i++)
-			ans[j][j-i] = 0;
-	}
-	
-	for(j=0;j<m;j++){
-		for(i=0;i<n+18;i++)
-		{
-			if(carry +ans[0][i] + ans[j+1][i] >= 10)
-			{
-
-				ans[0][i] = (ans[0][i] + ans[j+1][i] + carry)%10;
-=======
-	//곱셈을 한자릿수마다 연산한다
-	for(j=0;j<m;j++){
-		for(i=0;i<n;i++)
-		{
-			temp[j][i] = (a[i] * b[j] + carry)%10;
-			carry = (a[i] * b[j] + carry)/10;
-		}
-		temp[j][i] = carry;	
-		carry = 0;
-	}
-	
-	//자릿수를 맞추기 위해 밀어준다 
-	for(j=1;j<m;j++)
-	{
-		for(i=n;i>=0;i--)
-			temp[j][i+j] = temp[j][i];
-	}
-
-	//밀어준 자리에 0을 넣는다
-	for(j=1;j<=m;j++)
-	{
-		for(i=1;i<=j;i++)
-			temp[j][j-i] = 0;
-	}
-	
-	for(j=0;j<m;j++){
-		for(i=0;i<m+n;i++)
-		{
-			if(carry +temp[0][i] + temp[j+1][i] >= 10)
-			{
-
-				temp[0][i] = (temp[0][i] + temp[j+1][i] + carry)%10;
->>>>>>> refs/remotes/origin/master
-				carry=1;
-			}
-			else
-			{
-<<<<<<< HEAD
-				ans[0][i] = ans[0][i] + ans[j+1][i] + carry;
-=======
-				temp[0][i] = temp[0][i] + temp[j+1][i] + carry;
->>>>>>> refs/remotes/origin/master
-				carry=0;
-			}
-		}
-	}
-
-<<<<<<< HEAD
-	//전체 자리를 위한 수 리턴
-	j=m+n;
-	if(ans[0][j-1]==0){
-		j-=1;
-	}
-	for(i=0;i<j;i++){
-		ans[0][i]=ans[0][i+9];
-	}
-	j-=9;
-	
-	for(i=0;i<j;i++){
-		answer[i] = ans[0][i];
-=======
-	//전체 자리를 위한 수를 리턴한다
-	j=m+n;
-	if(temp[0][j-1]==0){
-		j-=1;
-	}
-	for(i=0;i<j;i++){
-		temp[0][i]=temp[0][i+9];
-	}
-	j-=9;
-	
-	if(j>=60){
-		j=59;
-	}
-
-	for(i=0;i<j;i++){
-		answer[i] = temp[0][i];
->>>>>>> refs/remotes/origin/master
-	}
-	return j;
-}
-
-//나눗셈 함수
-int divide(char a[], int n, char b[], int m, char answer[])
-{
-	printf("나눗셈 함수 입력해야지...\n");
+	printf("곱셈 함수 입력해야지...\n");
 	return 0;
 }
 
+int multiplyTen(char a[] , int n){
+	a[n + 1] = '0';
+	return n + 1;
+}
+int compare(char a[],int n, char b[], int m){
+	if(n > m)
+		return 1;	//앞이 크다
+	else if(n < m)	//뒤가 크다
+		return 2;
+	else
+		for(int i = 0 ; i < n; i++){
+			if(a[i] > b[i])
+				return 1;
+			else if(a[i] < b[i])
+				return 2;
+		}
+	return 0;	//같다
+
+}
+int toChar(char a[] , int n){
+	for(int i = 0; i < n; i++)
+		a[i] += '0';
+
+}
+//나눗셈 함수
+int divide(char a[], int n, char b[], int m, char answer[])
+{
+<<<<<<< HEAD
+	printf("와이 시작이 완됌?");	
+=======
+>>>>>>> refs/remotes/origin/baeseohyeon
+	int newAnswer[60] = {0};
+	int howBig = 0;
+	char temp[60];
+	int tn;
+
+	for(int i = 0 ; i < 60; i++)	//temp 를 사용하기 위해서 초기화
+		temp[i] = b[i];
+	tn = m;
+	tn = multiplyTen(temp,tn);	//10 곱하기
+	while(compare(a,n,b,m) != 1){
+		for(int i = 0; i < 60; i++)
+			b[i] = temp[i];
+		m = tn;
+		tn = multiplyTen(temp,tn);
+		howBig++;
+	}
+	int o = howBig;
+
+	while(howBig != -9){
+		while(compare(a,n,b,m) != 2){
+			char ta[60];
+			char tb[60];
+			char getAnswer[60];
+			int dig[2]= {0};
+			for(int i = 0 ; i < 60; i++){
+				ta[i] = a[i];
+				tb[i] = b[i];
+			}
+			while(ta[n - (++dig[0])] == '0');
+			while(tb[n - (++dig[1])] == '0');
+			dig[0] = (dig[0] <  dig[1] ? dig[0] : dig[1]);
+			minus(ta,n,tb,m,getAnswer);
+			for(int i = 0 ; i < strlen(getAnswer); i++){
+				a[i] = getAnswer[i] + '0';
+			}
+			for(int i = 0; i < dig[0]; i++){
+				a[strlen(getAnswer) + i] = '0';
+			}
+			answer[howBig - o] += 1;
+		  	o -= 2;
+		}
+	}
+	return 0;
+}
 //나머지 함수
 int mod(char a[], int n, char b[], int m, char answer[])
 {
@@ -561,7 +490,7 @@ void reverse(char rev[], int n)
 }
 
 //정답 출력 함수
-void printAanswer(char answer[], int length, int sigDigit, int negNum)
+void printAnswer(char answer[], int length, int sigDigit, int negNum)
 {
 	int i, j;
 
