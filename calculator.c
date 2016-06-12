@@ -16,7 +16,10 @@
 void starter(char input[]);													//수식 입력 함수
 void calculate(char value[], char answer[]);								//수식 계산 함수
 int compare(char a[], int v1, char b[], int v2);							//두 배열 크기 비교
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 int plus(char a[], int n, char b[], int m, char answer[]);					//덧셈 함수
 int minus(char a[], int n, char b[], int m, char answer[]);					//뺄셈 함수
 int multiply(char a[], int n, char b[], int m, char answer[]);				//곱셈 함수
@@ -24,6 +27,7 @@ void divide(char a[], int n, char b[], int m, char answer[], int check[]);	//나
 void mod(char a[], int n, char b[], int m, char answer[], int check[]);		//나머지 함수
 void copy(char a[],char b[]);												//복붙
 void multiplyTen(char a[]);													//10배 함수
+<<<<<<< HEAD
 
 void variable(char varName[], char value[], int length, int negCheck, char deciCount[], int saveVariable[], int checkVar[]);
 void VAR(int checkVar[], int saveVariable[]);								//VAR 함수
@@ -32,6 +36,12 @@ void load(int checkVar[], int saveVariable[]);								//load 함수
 
 void integer(char inte[], int n);											//받은 배열(상수)을 char형에서 int형으로 바꾸는 함수
 void reverse(char rev[], int n);											//받은 배열(상수)을 뒤집어 주는 함수 
+=======
+void variable(char varName[], char value[], int length, int negCheck, char deciCount[], int saveVariable[], int checkVar[]);
+void integer(char inte[], int n);											//받은 배열(상수)을 char형에서 int형으로 바꾸는 함수
+void reverse(char rev[], int n);											//받은 배열(상수)을 뒤집어 주는 함수 
+void printanswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
+>>>>>>> master
 
 void printanswer(char answer[], int length, int sigDigit, int negNum);		//정답 출력 함수
 
@@ -143,6 +153,11 @@ void calculate(char input[], char answer[])
 	//소수
 	char deciCount[N][2] = {0};
 	//변수 받기
+<<<<<<< HEAD
+=======
+	static int saveVariable[26][62] = {0};
+	static int checkVar[26] = {0};
+>>>>>>> master
 
 	//수식 구분하기
 	if(input[0]=='-'){
@@ -608,6 +623,12 @@ int multiply(char a[], int n, char b[], int m, char answer[])
 	}
 
 	//전체 자리를 위한 수를 리턴한다
+<<<<<<< HEAD
+=======
+	for(i=0;i<60;i++){
+		printf("%d",temp[0][i]);
+	}
+>>>>>>> master
 	j=m+n;
 	for(i=0;i<j;i++){
 		temp[0][i]=temp[0][i+9];
@@ -656,7 +677,10 @@ void divide(char a[], int n, char b[], int m, char answer[], int check[])
 	while(howBig != -10){
 		int count = 0;
 		char getAnswer[60] = {0};
+<<<<<<< HEAD
 		
+=======
+>>>>>>> master
 		while(compare(ta,strlen(ta),tb,strlen(tb)) == 1){
 			int len = minus(ta,strlen(ta),tb,strlen(tb),getAnswer);
 			for(int i = 0; i < len / 2;i++){
@@ -669,7 +693,10 @@ void divide(char a[], int n, char b[], int m, char answer[], int check[])
 			copy(ta,getAnswer);
 			copy(tb,tbb);
 			count++;	
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 		}	
 		if(compare(ta,strlen(ta),tb,strlen(tb)) == 0){
 			count ++;
@@ -688,11 +715,19 @@ void divide(char a[], int n, char b[], int m, char answer[], int check[])
 	}
 	check[0] = j;
 	check[1] = 9;
+<<<<<<< HEAD
 	return;
 }
 
 //나머지 함수
 void mod(char a[], int n, char b[], int m, char answer[], int check[]){
+=======
+}
+
+//나머지 함수
+void mod(char a[], int n, char b[], int m, char answer[], int check[])
+{
+>>>>>>> master
 	char ta[60];
 	char tb[60];
 	char temp[60];
@@ -716,6 +751,10 @@ void mod(char a[], int n, char b[], int m, char answer[], int check[]){
 	for(int i = 0; i < len; i++)
 		getAnswer[i] += '0';
 	copy(tb,getAnswer);
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 	len = minus(ta,strlen(ta),tb,strlen(tb),answer);
 	for(int i = 0; i < len / 2; i++){
 		int t = answer[i];
@@ -735,7 +774,10 @@ void copy(char a[], char b[]){
 void multiplyTen(char a[]){
 	a[strlen(a)] = '0';
 }
+<<<<<<< HEAD
 //변수 정의 함수
+=======
+>>>>>>> master
 void variable(char varName[], char value[], int length, int negCheck, char deciCount[], int saveVariable[], int checkVar[]){
 	static int varCount = 0;
 	int i,j,temp;
@@ -771,6 +813,7 @@ void variable(char varName[], char value[], int length, int negCheck, char deciC
 	//전체 자리수 저장
 	saveVariable[(temp+1)*62-3] = length-9+deciCount[1];
 	return;
+<<<<<<< HEAD
 }
 //VAR 함수
 void VAR(int checkVar[], int saveVariable[]){
@@ -796,6 +839,8 @@ void VAR(int checkVar[], int saveVariable[]){
 	}
 	printf("\n");
 	return;
+=======
+>>>>>>> master
 }
 //save 함수
 void save(int checkVar[], int saveVariable[]){
