@@ -840,6 +840,7 @@ void load(int checkVar[], int saveVariable[]){
 	int name;
 	char temp[61] = {0};
 	load = fopen("VAR","r");
+<<<<<<< HEAD
 	while((fscanf(load, "%c = %s\n",&name, &temp)!=EOF))
 	{
 		checkVar[name-'A'] = 1;
@@ -847,6 +848,19 @@ void load(int checkVar[], int saveVariable[]){
 			if(temp[i]>='0' && temp[i]<='9'){
 				saveVariable[(name-'A')*62+j]=temp[i]-'0';
 				j++;
+=======
+	//저장된 변수를 불러온다
+	while((fscanf(load, "%c = %s\n",&name, &temp)!=EOF))
+	{
+		//변수를 카운트 한다
+		checkVar[name-'A'] = 1;
+		for(i=0,j=0,k=0,deci=0;i<strlen(temp);i++){
+			if(temp[i]>='0' && temp[i]<='9'){
+				//불러온 변수를 배열에 저장한다
+				saveVariable[(name-'A')*62+j]=temp[i]-'0';
+				j++;
+				//소수자리를 카운트 한다
+>>>>>>> origin/hyeyun
 				if(deci){
 					k++;
 				}
@@ -854,10 +868,18 @@ void load(int checkVar[], int saveVariable[]){
 			else if(temp[i]=='.'){
 				deci=1;
 			}
+<<<<<<< HEAD
+=======
+			//음수인지 확인한다
+>>>>>>> origin/hyeyun
 			else if(temp[i]=='-'){
 				saveVariable[(name-'A'+1)*62-2]=1;
 			}
 		}
+<<<<<<< HEAD
+=======
+		//변수 전체 자리수와 소수 자리수를 저장한다
+>>>>>>> origin/hyeyun
 		saveVariable[(name-'A'+1)*62-3]=j;
 		saveVariable[(name-'A'+1)*62-1]=k;
 	}
